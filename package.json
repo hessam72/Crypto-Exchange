@@ -1,0 +1,22 @@
+{
+    "name": "crypto-exchange",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www",
+        "dev": "env-cmd -f ./config/dev.env nodemon ./bin/www"
+    },
+    "dependencies": {
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "env-cmd": "^10.1.0",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "jade": "~1.11.0",
+        "mongodb": "^4.2.2",
+        "mongoose": "^6.1.2",
+        "morgan": "~1.9.1",
+        "socket.io": "^4.4.0",
+        "validator": "^13.7.0"
+    }
+}
