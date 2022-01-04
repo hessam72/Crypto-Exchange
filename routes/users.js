@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const AuthUser = require('../middleware/auth_user')
+    /* GET users listing. */
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
-});
-router.get('/me', (req, res) => {
-    res.send('this is me')
+
+router.get('/profile', AuthUser, (req, res) => {
+    console.log('fdfdfd')
+    res.send(req.user)
 })
 
 module.exports = router;

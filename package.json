@@ -14,9 +14,12 @@
         "http-errors": "~1.6.3",
         "jade": "~1.11.0",
         "mongodb": "^4.2.2",
-        "mongoose": "^6.1.2",
+        "mongoose": "^6.1.4",
         "morgan": "~1.9.1",
+        "request": "^2.88.2",
+        "request-promise": "^4.2.6",
         "socket.io": "^4.4.0",
+        "t-login-singup": "^1.1.9",
         "validator": "^13.7.0"
     }
 }

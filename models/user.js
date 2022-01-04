@@ -4,8 +4,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
-    username: {
+    fullname: {
         type: String,
+        required: true
     },
     email: {
         type: String,
@@ -110,7 +111,7 @@ userSchema.statics.findByCredentials = async(email, password) => {
     if (!isMatch) {
         throw new Error('unable.. to login')
     }
-    if (!user.is_active) {
+    if (user.status === 0) {
         throw new Error('you are currently not allowed to log in')
     }
     return user
