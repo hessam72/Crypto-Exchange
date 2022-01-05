@@ -1,28 +1,27 @@
 const mongoose = require('mongoose')
 
 
-const walletSchema = new mongoose.Schema({
-    user_id: {
+const assetSchema = new mongoose.Schema({
+    user: {
         type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
+    coin: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Coin'
+    },
+    symbol: {
+        type: String,
         required: true
     },
-    asset_id: {
-        type: mongoose.Schema.Types.ObjectId,
+    amount: {
+        type: Number,
+        default: 0,
+        required: true,
+        min: 0
     }
-    // coin_id: {
-    //     type: ObjectId,
-    //     required: true
-    // },
-    // coin_name:{
-    //     type:String,
-    //     required: true
-
-    // },
-    // coin_amount: {
-    //     type: Decimal,
-    //     default: 0,
-
-    // }
 }, {
     timestamps: true,
     toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
@@ -32,31 +31,31 @@ const walletSchema = new mongoose.Schema({
 
 
 
-walletSchema.pre('remove', async function(next) {
+assetSchema.pre('remove', async function(next) {
     const user = this
 
     // dont know why next() throw error
     next()
 })
 
-walletSchema.pre('save', async function(next) {
+assetSchema.pre('save', async function(next) {
     const user = this
 
     next()
 })
 
 
-walletSchema.methods.toJSON = function() {
+assetSchema.methods.toJSON = function() {
     const user = this
-    const walletSchema = user.toObject()
+    const assetSchema = user.toObject()
         // delete userObject.password
         // delete userObject.tokens
         // delete userObject.avatar
-    return walletSchema
+    return assetSchema
 }
 
 
 
-const Wallet = mongoose.model('Wallet', walletSchema);
+const Asset = mongoose.model('Asset', assetSchema);
 
-module.exports = Wallet;
+module.exports = Asset;

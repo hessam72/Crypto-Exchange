@@ -126,31 +126,10 @@ router.get('/save_coins', async(req, res) => {
 
 router.get('/coin_price_update', async(req, res) => {
     try {
-        const requestOptions = {
-            method: 'GET',
-            uri: 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion',
-            qs: {
-                'amount': '1',
-                'symbol': req.body.symbol,
-                'convert': 'USD'
-            },
-            headers: {
-                'X-CMC_PRO_API_KEY': 'adaac974-14ff-4dbd-b878-b895d4d42cf3'
-            },
-            json: true,
-            gzip: true
-        };
-
-        rp(requestOptions).then(response => {
-            res.send(response)
-        }).catch((err) => {
-            res.send(err.message)
-        });
-
-
-
+        const update_data = await Coin.updatePrice(req.body.symbol, req.body.convert.toUpperCase())
+        res.send(update_data)
     } catch (e) {
-        res.send(e.toString())
+        res.send(e.message)
     }
 })
 

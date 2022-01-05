@@ -60,12 +60,11 @@ const userSchema = new mongoose.Schema({
 
 }, );
 
-
-// userSchema.virtual('adds', {
-//     ref: 'Add',
-//     localField: '_id',
-//     foreignField: 'owner'
-// })
+userSchema.virtual('assets', {
+    ref: 'Asset',
+    localField: '_id',
+    foreignField: 'user'
+})
 
 userSchema.pre('remove', async function(next) {
     const user = this

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const rp = require('request-promise');
 
 
 const coinSchema = new mongoose.Schema({
@@ -48,6 +49,42 @@ coinSchema.pre('save', async function(next) {
 
     next()
 })
+
+//price update method
+coinSchema.statics.updatePrice = async(symbol, convert) => {
+
+    return new Promise(function(resolve, reject) {
+        try {
+            console.log('inside model')
+            const requestOptions = {
+                method: 'GET',
+                uri: 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion',
+                qs: {
+                    'amount': '1',
+                    'symbol': symbol,
+                    'convert': convert
+                },
+                headers: {
+                    'X-CMC_PRO_API_KEY': process.env.X_CMC_PRO_API_KEY
+                },
+                json: true,
+                gzip: true
+            };
+
+            rp(requestOptions).then(response => {
+
+
+                resolve(response)
+
+            }).catch((err) => {
+                throw new Error(err.message)
+            });
+
+        } catch (e) {
+            reject(e.message)
+        }
+    })
+}
 
 
 coinSchema.methods.toJSON = function() {
